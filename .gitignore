@@ -1,0 +1,16 @@
+# Banco de dados
+*.db
+
+# Relatórios
+*.pdf
+
+# Modelos treinados
+*.pkl
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# Ambiente virtual
+venv/
+.env

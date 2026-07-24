@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionário - EmoMap</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        🧠 <span>EmoMap</span>
+    </div>
+</header>
+
+<main>
+
+<section class="questionario">
+
+    <h1>Questionário EmoMap</h1>
+
+    <p class="etapa">Etapa 1 de 4</p>
+
+    <div class="barra">
+        <div class="progresso" style="width:25%;"></div>
+    </div>
+
+    <form method="POST" action="{{ url_for('questionario') }}">
+
+        <!-- Nome -->
+        <label for="nome">Nome (Opcional)</label>
+
+        <input
+            type="text"
+            id="nome"
+            name="nome"
+            placeholder="Digite seu nome">
+
+        <!-- Idade -->
+        <label for="idade">Idade</label>
+
+        <input
+            type="number"
+            id="idade"
+            name="idade"
+            min="5"
+            max="120"
+            required>
+
+        <!-- Sexo -->
+        <label for="sexo">Sexo</label>
+
+        <select
+            id="sexo"
+            name="sexo"
+            required>
+
+            <option value="">Selecione</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+            <option value="Outro">Outro</option>
+
+        </select>
+
+        <!-- Localidade -->
+        <label for="bairro">Bairro ou Localidade</label>
+
+        <select
+            id="bairro"
+            name="bairro"
+            required>
+
+            <option value="">Selecione</option>
+
+            <optgroup label="Região Urbana">
+                <option value="Centro">Centro</option>
+                <option value="Coqueiral">Coqueiral</option>
+                <option value="Mutirão">Mutirão</option>
+                <option value="Rio Novo">Rio Novo</option>
+                <option value="Alto Luminoso">Alto Luminoso</option>
+                <option value="Jardim Icaraí">Jardim Icaraí</option>
+            </optgroup>
+
+            <optgroup label="Distritos e Comunidades">
+                <option value="Guanacés">Guanacés</option>
+                <option value="Cristais">Cristais</option>
+                <option value="Caponga">Caponga</option>
+                <option value="Barra Nova">Barra Nova</option>
+                <option value="Tijucussu">Tijucussu</option>
+                <option value="Moita Redonda">Moita Redonda</option>
+                <option value="Pitombeiras">Pitombeiras</option>
+                <option value="Jacarecoara">Jacarecoara</option>
+            </optgroup>
+
+            <optgroup label="Região Litorânea">
+                <option value="Praia da Caponga">Praia da Caponga</option>
+                <option value="Barra da Caponga">Barra da Caponga</option>
+                <option value="Águas Belas">Águas Belas</option>
+            </optgroup>
+
+        </select>
+
+        <button type="submit">
+            Próxima Etapa →
+        </button>
+
+    </form>
+
+</section>
+
+</main>
+
+</body>
+</html>

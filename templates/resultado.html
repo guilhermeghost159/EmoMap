@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resultado - EmoMap</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🧠 <span>EmoMap</span>
+    </div>
+
+</header>
+
+
+<main>
+
+
+<section class="questionario">
+
+
+    <h1>Resultado EmoMap</h1>
+
+
+    <div class="resultado">
+
+
+        <h2>
+            {{ classificacao }}
+        </h2>
+
+
+        <p>
+            Seu Índice EmoMap:
+        </p>
+
+
+        <div class="indice">
+
+            {{ indice }}
+
+        </div>
+
+
+        <p>
+            Esse resultado representa uma análise inicial baseada nas respostas do questionário.
+        </p>
+
+
+        <a href="/">
+            <button>
+                Voltar ao início
+            </button>
+        </a>
+
+
+    </div>
+
+
+</section>
+
+
+</main>
+
+
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmoMap</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- MENU -->
+    <header class="navbar">
+
+        <div class="logo">
+            🧠 <span>EmoMap</span>
+        </div>
+
+        <nav>
+
+            <a href="{{ url_for('inicio') }}">Home</a>
+
+            <a href="{{ url_for('questionario') }}">
+                Questionário
+            </a>
+
+            <a href="{{ url_for('ranking') }}">
+                Ranking
+            </a>
+
+            <a href="#">
+                Mapa
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- CONTEÚDO -->
+    <main>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <h1>Bem-vindo ao EmoMap</h1>
+
+            <p>
+                Monitoramento emocional e territorial da população de Cascavel-CE.
+            </p>
+
+            <a href="{{ url_for('questionario') }}">
+                <button>
+                    Responder Questionário
+                </button>
+            </a>
+
+        </section>
+
+
+        <!-- EMOÇÕES -->
+        <section class="emocoes">
+
+            <h2>Como você está se sentindo hoje?</h2>
+
+            <div class="cards">
+
+                <div class="card">
+                    <div class="emoji">😀</div>
+                    <p>Feliz</p>
+                </div>
+
+                <div class="card">
+                    <div class="emoji">😊</div>
+                    <p>Calmo</p>
+                </div>
+
+                <div class="card">
+                    <div class="emoji">😐</div>
+                    <p>Neutro</p>
+                </div>
+
+                <div class="card">
+                    <div class="emoji">😟</div>
+                    <p>Triste</p>
+                </div>
+
+                <div class="card">
+                    <div class="emoji">😢</div>
+                    <p>Ansioso</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SOBRE -->
+        <section class="sobre">
+
+            <h2>O que é o EmoMap?</h2>
+
+            <p>
+                O EmoMap é uma plataforma de monitoramento emocional que utiliza
+                questionários, hábitos de vida e indicadores comportamentais para
+                produzir um Índice EmoMap de Bem-Estar Emocional.
+            </p>
+
+        </section>
+
+
+        <!-- COMO FUNCIONA -->
+        <section class="funcionamento">
+
+            <h2>Como funciona?</h2>
+
+            <div class="passos">
+
+                <div class="passo">
+
+                    <h3>1️⃣ Responda</h3>
+
+                    <p>
+                        Preencha o questionário emocional.
+                    </p>
+
+                </div>
+
+                <div class="passo">
+
+                    <h3>2️⃣ Analise</h3>
+
+                    <p>
+                        O sistema calcula o Índice EmoMap automaticamente.
+                    </p>
+
+                </div>
+
+                <div class="passo">
+
+                    <h3>3️⃣ Visualize</h3>
+
+                    <p>
+                        Os resultados são apresentados em rankings e mapas.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ESTATÍSTICAS -->
+        <section class="estatisticas">
+
+            <div class="item">
+                <h2>100+</h2>
+                <p>Avaliações</p>
+            </div>
+
+            <div class="item">
+                <h2>5</h2>
+                <p>Localidades</p>
+            </div>
+
+            <div class="item">
+                <h2>1</h2>
+                <p>Município</p>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+    <footer>
+
+        <p>© 2026 EmoMap</p>
+
+        <p>Projeto Científico - Ceará Científico</p>
+
+    </footer>
+ <a href="{{ url_for('dashboard') }}">
+    Dashboard
+ </a>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Ranking EmoMap</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        🧠 <span>EmoMap</span>
+    </div>
+</header>
+
+<main>
+
+<section class="questionario">
+
+    <h1>Ranking EmoMap</h1>
+
+    {% for bairro in ranking %}
+
+    <div class="card-ranking">
+
+        <h2>
+            {{ loop.index }}º - {{ bairro[0] }}
+        </h2>
+
+        <p>
+            Índice Médio:
+            <strong>{{ bairro[1] }}</strong>
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+</section>
+
+</main>
+
+</body>
+</html>

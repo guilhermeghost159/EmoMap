@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | EmoMap</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+
+        🧠 <strong>EmoMap</strong>
+
+    </div>
+
+    <nav>
+
+        <a href="/">🏠 Home</a>
+
+        <a href="/questionario">📝 Questionário</a>
+
+        <a href="/ranking">🏆 Ranking</a>
+
+        <a href="/mapa">🗺️ Mapa</a>
+
+        <a href="/dashboard">📊 Dashboard</a>
+
+    </nav>
+
+</header>
+
+<main class="dashboard">
+
+    <!-- ========================= -->
+    <!-- TÍTULO -->
+    <!-- ========================= -->
+
+    <section class="titulo-dashboard">
+
+        <h1>📊 Dashboard EmoMap</h1>
+
+        <p>
+            Monitoramento dos indicadores emocionais dos estudantes.
+        </p>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- KPIs -->
+    <!-- ========================= -->
+
+    <section class="resumo">
+
+<div class="card-resumo">
+    <h3>👥 Participantes</h3>
+    <span id="kpi-total">{{ total_participantes }}</span>
+</div>
+
+<div class="card-resumo">
+    <h3>📊 Média Geral</h3>
+    <span id="kpi-media">{{ media_geral }}</span>
+</div>
+
+<div class="card-resumo">
+    <h3>😊 Emoção Predominante</h3>
+    <span id="kpi-emocao">{{ emocao_predominante }}</span>
+</div>
+
+<div class="card-resumo">
+    <h3>⚠️ Bairro Crítico</h3>
+    <span id="kpi-bairro">{{ bairro_critico }}</span>
+</div>
+
+</section>
+<section class="insights">
+
+    <h2>🧠 Insights Automáticos</h2>
+
+    <ul>
+
+        <li>
+            👥 Total de participantes:
+            <strong>{{ total_participantes }}</strong>
+        </li>
+
+        <li>
+            📊 Média Geral:
+            <strong>{{ media_geral }}</strong>
+        </li>
+
+        <li>
+            😊 Emoção predominante:
+            <strong>{{ emocao_predominante }}</strong>
+        </li>
+
+        <li>
+            ⚠️ Bairro com maior índice:
+            <strong>{{ bairro_critico }}</strong>
+        </li>
+
+    </ul>
+
+</section>
+
+
+    <!-- ========================= -->
+    <!-- FILTROS -->
+    <!-- ========================= -->
+
+    <section class="filtros">
+
+        <h2>🔍 Filtros</h2>
+
+        <form action="/dashboard" method="GET">
+
+            <div class="campo">
+
+                <label>Idade</label>
+
+                <select name="idade">
+
+                    <option value="">Todas</option>
+
+                    {% for idade in lista_idades %}
+
+                    <option value="{{ idade }}"
+                    {% if idade|string == idade_selecionada %}
+                    selected
+                    {% endif %}>
+
+                        {{ idade }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label>Sexo</label>
+
+                <select name="sexo">
+
+                    <option value="">Todos</option>
+
+                    {% for sexo in lista_sexos %}
+
+                    <option value="{{ sexo }}"
+                    {% if sexo == sexo_selecionado %}
+                    selected
+                    {% endif %}>
+
+                        {{ sexo }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label>Bairro</label>
+
+                <select name="bairro">
+
+                    <option value="">Todos</option>
+
+                    {% for bairro in lista_bairros %}
+
+                    <option value="{{ bairro }}"
+                    {% if bairro == bairro_selecionado %}
+                    selected
+                    {% endif %}>
+
+                        {{ bairro }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="botoes">
+
+                <button type="submit">
+
+                    🔍 Filtrar
+
+                </button>
+
+                <a href="/dashboard" class="btn-limpar">
+
+                    Limpar
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- GRÁFICOS -->
+    <!-- ========================= -->
+
+    <section class="graficos">
+
+        <div class="grafico">
+
+            <h2>📊 Média do Índice por Bairro</h2>
+
+            <canvas id="graficoBarras"></canvas>
+
+        </div>
+
+
+        <div class="grafico">
+
+            <h2>🧠 Distribuição das Emoções</h2>
+
+            <canvas id="graficoPizza"></canvas>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+const bairros = {{ dados_bairros | tojson }};
+const emocoes = {{ dados_emocoes | tojson }};
+
+console.log(bairros);
+console.log(emocoes);
+
+</script>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+<script>
+
+async function atualizarDashboard(){
+
+    const resposta = await fetch("/api/dashboard");
+
+    const dados = await resposta.json();
+
+    console.log(dados);
+
+    document.getElementById("totalParticipantes").innerHTML = dados.total;
+
+}
+
+// Executa quando a página abre
+atualizarDashboard();
+
+// Executa novamente a cada 5 segundos
+setInterval(atualizarDashboard, 5000);
+
+</script>
+
+</body>
+
+</html>

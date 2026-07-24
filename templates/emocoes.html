@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Emoções - EmoMap</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        🧠 <span>EmoMap</span>
+    </div>
+</header>
+
+<main>
+
+<section class="questionario">
+
+    <h1>Como você está se sentindo?</h1>
+
+    <p class="etapa">
+        Etapa 3 de 4
+    </p>
+
+    <div class="barra">
+        <div class="progresso" style="width:75%;"></div>
+    </div>
+
+    <form method="POST">
+
+        <label>Nível de Estresse (0 a 10)</label>
+        <input type="number"
+               name="estresse"
+               min="0"
+               max="10"
+               required>
+
+        <label>Estado Emocional</label>
+        <select name="emocao" required>
+            <option value="">Selecione</option>
+            <option value="Relaxado">Relaxado</option>
+            <option value="Alerta">Alerta</option>
+            <option value="Moderado">Estresse Moderado</option>
+            <option value="Elevado">Estresse Elevado</option>
+        </select>
+
+        <label>Convivência Social</label>
+        <select name="social" required>
+            <option value="">Selecione</option>
+            <option value="Pouca">Pouca</option>
+            <option value="Média">Média</option>
+            <option value="Alta">Alta</option>
+        </select>
+
+        <label>Pressão Escolar (0 a 5)</label>
+        <input type="number"
+               name="pressao"
+               min="0"
+               max="5"
+               required>
+
+        <button type="submit">
+            Ver Resultado →
+        </button>
+
+    </form>
+
+</section>
+
+</main>
+
+</body>
+</html>

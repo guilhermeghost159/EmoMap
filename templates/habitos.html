@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Hábitos - EmoMap</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        🧠 <span>EmoMap</span>
+    </div>
+</header>
+
+<main>
+
+<section class="questionario">
+
+    <h1>Hábitos Diários</h1>
+
+    <p class="etapa">
+        Etapa 2 de 4
+    </p>
+
+    <div class="barra">
+        <div class="progresso" style="width:50%;"></div>
+    </div>
+
+    <form method="POST">
+
+        <label>Horas de Sono</label>
+
+        <select name="sono">
+            <option value="">Selecione</option>
+            <option value="4">4 horas</option>
+            <option value="6">6 horas</option>
+            <option value="8">8 horas</option>
+        </select>
+
+        <label>Uso diário do celular</label>
+
+        <select name="celular">
+            <option value="">Selecione</option>
+            <option value="2">Até 2 horas</option>
+            <option value="4">Até 4 horas</option>
+            <option value="8">Mais de 8 horas</option>
+        </select>
+
+        <label>Atividade Física</label>
+
+        <select name="atividade">
+            <option value="">Selecione</option>
+            <option value="Pouca">Pouca</option>
+            <option value="Média">Média</option>
+            <option value="Alta">Alta</option>
+        </select>
+
+        <label>Alimentação</label>
+
+        <select name="alimentacao">
+            <option value="">Selecione</option>
+            <option value="Ruim">Ruim</option>
+            <option value="Mediana">Mediana</option>
+            <option value="Saudável">Saudável</option>
+        </select>
+
+        <button type="submit">
+            Próxima Etapa →
+        </button>
+
+    </form>
+
+</section>
+
+</main>
+
+</body>
+</html>

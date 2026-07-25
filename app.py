@@ -17,6 +17,31 @@ def conectar_banco():
     banco.row_factory = sqlite3.Row
 
     return banco
+def criar_tabelas():
+
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS avaliacao (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT,
+        idade INTEGER,
+        sexo TEXT,
+        bairro TEXT,
+        sono TEXT,
+        celular TEXT,
+        atividade TEXT,
+        alimentacao TEXT,
+        estresse INTEGER,
+        emocao TEXT,
+        convivencia TEXT,
+        indice REAL
+    )
+    """)
+
+    conexao.commit()
+    conexao.close()
 
 # ======================
 # FUNÇÃO SALVAR NO BANCO
@@ -797,6 +822,8 @@ def teste_db():
     conn.close()
 
     return str(tabelas)
+
+criar_tabelas()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

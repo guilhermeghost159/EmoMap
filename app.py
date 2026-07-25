@@ -111,6 +111,44 @@ def salvar_dados(dados):
 # ======================
 
 criar_tabelas()
+
+# ======================
+# PÁGINA INICIAL
+# ======================
+
+@app.route("/")
+def inicio():
+
+    return render_template("index.html")
+
+
+
+# ======================
+# ETAPA 1
+# QUESTIONÁRIO
+# ======================
+
+@app.route("/questionario", methods=["GET", "POST"])
+def questionario():
+
+    if request.method == "POST":
+
+        session["nome"] = request.form.get("nome")
+        session["idade"] = request.form.get("idade")
+        session["sexo"] = request.form.get("sexo")
+        session["bairro"] = request.form.get("bairro")
+
+        print("===== DADOS PESSOAIS =====")
+        print("Nome:", session["nome"])
+        print("Idade:", session["idade"])
+        print("Sexo:", session["sexo"])
+        print("Bairro:", session["bairro"])
+
+        return redirect(url_for("habitos"))
+
+
+    return render_template("questionario.html")
+
 # ======================
 # ETAPA 2
 # HÁBITOS

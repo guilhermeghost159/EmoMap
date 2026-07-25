@@ -5,11 +5,25 @@ from folium.plugins import HeatMap
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
-from flask import send_file 
+from flask import send_file
+
 
 app = Flask(__name__)
 
 app.secret_key = "emomap2026"
+
+
+# 1º - criar conexão
+def conectar_banco():
+
+    banco = sqlite3.connect("emomap.db")
+
+    banco.row_factory = sqlite3.Row
+
+    return banco
+
+
+# 2º - criar tabelas
 def criar_tabelas():
 
     conexao = conectar_banco()
@@ -37,47 +51,9 @@ def criar_tabelas():
     conexao.commit()
     conexao.close()
 
-# CRIA O BANCO QUANDO O SERVIDOR SOBE
+
+# 3º - executar depois das funções existirem
 criar_tabelas()
-
-# ======================
-# FUNÇÃO SALVAR NO BANCO
-# ======================
-
-def salvar_dados(dados):
-
-    conexao = sqlite3.connect("emomap.db")
-
-    cursor = conexao.cursor()
-
-    cursor.execute("""
-        INSERT INTO avaliacao
-        (
-            nome,
-            idade,
-            sexo,
-            bairro,
-            sono,
-            celular,
-            atividade,
-            alimentacao,
-            estresse,
-            emocao,
-            social,
-            pressao,
-            indice
-        )
-
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
-
-    """, dados)
-
-
-    conexao.commit()
-
-    conexao.close()
-    pontos_heatmap = []
-
 
 # ======================
 # PÁGINA INICIAL

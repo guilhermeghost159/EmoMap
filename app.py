@@ -780,21 +780,7 @@ def gerar_pdf():
 
     return "PDF criado com sucesso!"
 
-@app.route("/atualizar_db")
-def atualizar_db():
 
-    conexao = conectar_banco()
-    cursor = conexao.cursor()
-
-    cursor.execute("""
-        ALTER TABLE avaliacao
-        ADD COLUMN social TEXT
-    """)
-
-    conexao.commit()
-    conexao.close()
-
-    return "Coluna social criada!"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

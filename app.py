@@ -782,5 +782,21 @@ def gerar_pdf():
 
     return "PDF criado com sucesso!"
 
+@app.route("/teste_db")
+def teste_db():
+    conn = sqlite3.connect("emomap.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT name FROM sqlite_master 
+        WHERE type='table'
+    """)
+
+    tabelas = cursor.fetchall()
+
+    conn.close()
+
+    return str(tabelas)
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

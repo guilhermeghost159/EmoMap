@@ -10,13 +10,6 @@ from flask import send_file
 app = Flask(__name__)
 
 app.secret_key = "emomap2026"
-def conectar_banco():
-
-    banco = sqlite3.connect("emomap.db")
-
-    banco.row_factory = sqlite3.Row
-
-    return banco
 def criar_tabelas():
 
     conexao = conectar_banco()
@@ -35,6 +28,7 @@ def criar_tabelas():
         alimentacao TEXT,
         estresse INTEGER,
         emocao TEXT,
+        social TEXT,
         convivencia TEXT,
         indice REAL
     )
@@ -42,6 +36,9 @@ def criar_tabelas():
 
     conexao.commit()
     conexao.close()
+
+# CRIA O BANCO QUANDO O SERVIDOR SOBE
+criar_tabelas()
 
 # ======================
 # FUNÇÃO SALVAR NO BANCO
@@ -807,23 +804,21 @@ def gerar_pdf():
 
     return "PDF criado com sucesso!"
 
-@app.route("/teste_db")
-def teste_db():
-    conn = sqlite3.connect("emomap.db")
-    cursor = conn.cursor()
+@app.route("/atualizar_db")
+def atualizar_db():
+
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
 
     cursor.execute("""
-        SELECT name FROM sqlite_master 
-        WHERE type='table'
+        ALTER TABLE avaliacao
+        ADD COLUMN social TEXT
     """)
 
-    tabelas = cursor.fetchall()
+    conexao.commit()
+    conexao.close()
 
-    conn.close()
-
-    return str(tabelas)
-
-criar_tabelas()
+    return "Coluna social criada!"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

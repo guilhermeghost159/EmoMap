@@ -5,7 +5,6 @@ from folium.plugins import HeatMap
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
-from flask import send_file
 
 
 app = Flask(__name__)
@@ -13,7 +12,10 @@ app = Flask(__name__)
 app.secret_key = "emomap2026"
 
 
-# 1º - criar conexão
+# ======================
+# CONEXÃO COM BANCO
+# ======================
+
 def conectar_banco():
 
     banco = sqlite3.connect("emomap.db")
@@ -23,7 +25,11 @@ def conectar_banco():
     return banco
 
 
-# 2º - criar tabelas
+
+# ======================
+# CRIAR TABELA
+# ======================
+
 def criar_tabelas():
 
     conexao = conectar_banco()
@@ -31,19 +37,24 @@ def criar_tabelas():
 
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS avaliacao (
+
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+
         nome TEXT,
         idade INTEGER,
         sexo TEXT,
         bairro TEXT,
+
         sono TEXT,
         celular TEXT,
         atividade TEXT,
         alimentacao TEXT,
+
         estresse INTEGER,
         emocao TEXT,
         social TEXT,
         convivencia TEXT,
+
         indice REAL
     )
     """)
@@ -52,63 +63,54 @@ def criar_tabelas():
     conexao.close()
 
 
-# 3º - executar depois das funções existirem
+
+# ======================
+# SALVAR AVALIAÇÃO
+# ======================
+
+def salvar_dados(dados):
+
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+        INSERT INTO avaliacao (
+
+            nome,
+            idade,
+            sexo,
+            bairro,
+
+            sono,
+            celular,
+            atividade,
+            alimentacao,
+
+            estresse,
+            emocao,
+            social,
+            convivencia,
+
+            indice
+
+        )
+
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+    """, dados)
+
+
+    conexao.commit()
+
+    conexao.close()
+
+
+
+# ======================
+# INICIALIZA BANCO
+# ======================
+
 criar_tabelas()
-
-# ======================
-# PÁGINA INICIAL
-# ======================
-
-@app.route("/")
-def inicio():
-
-    return render_template("index.html")
-
-
-
-# ======================
-# ETAPA 1
-# DADOS PESSOAIS
-# ======================
-
-@app.route("/questionario", methods=["GET", "POST"])
-def questionario():
-
-
-    if request.method == "POST":
-
-
-        session["nome"] = request.form.get("nome")
-
-        session["idade"] = request.form.get("idade")
-
-        session["sexo"] = request.form.get("sexo")
-
-        session["bairro"] = request.form.get("bairro")
-
-
-
-        print("===== DADOS PESSOAIS =====")
-
-        print("Nome:", session["nome"])
-
-        print("Idade:", session["idade"])
-
-        print("Sexo:", session["sexo"])
-
-        print("Bairro:", session["bairro"])
-
-
-
-        return redirect(url_for("habitos"))
-
-
-
-    return render_template("questionario.html")
-
-
-
-
 # ======================
 # ETAPA 2
 # HÁBITOS

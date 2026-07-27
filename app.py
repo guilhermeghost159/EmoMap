@@ -133,7 +133,7 @@ def questionario():
 
     if request.method == "POST":
 
-        session["nome"] = request.form.get("nome")
+        session["nome"] = None
         session["idade"] = request.form.get("idade")
         session["sexo"] = request.form.get("sexo")
         session["bairro"] = request.form.get("bairro")
@@ -783,12 +783,11 @@ def gerar_pdf():
         Paragraph("<b>Relatório EmoMap</b>", estilos["Title"])
     )
 
-    tabela = [["Nome", "Idade", "Sexo", "Bairro", "Índice", "Emoção"]]
+    tabela = [["Idade", "Sexo", "Bairro", "Índice", "Emoção"]]
 
     for linha in dados:
 
         tabela.append([
-            linha["nome"],
             linha["idade"],
             linha["sexo"],
             linha["bairro"],
@@ -819,6 +818,10 @@ def gerar_pdf():
     pdf.build(elementos)
 
     return "PDF criado com sucesso!"
+
+@app.route("/privacidade")
+def privacidade():
+    return render_template("privacidade.html")
 
 
 
